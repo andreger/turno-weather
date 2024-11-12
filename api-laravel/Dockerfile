@@ -15,15 +15,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy the existing application
 COPY . .
 
-# Install dependencies
-RUN composer install
-
-# Copy the example environment file and set up Laravel
-COPY .env.example .env
-
 RUN php artisan key:generate
-
-RUN php artisan migrate
 
 # Expose the port for Laravel
 EXPOSE 9000
