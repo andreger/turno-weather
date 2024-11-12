@@ -12,7 +12,9 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps } from "vue";
-const props = defineProps(["forecast"]);
+import { Forecast } from "@/interfaces/Forecast";
+
+const props = defineProps<{ forecast: Forecast }>();
 
 const temperature: ComputedRef<number> = computed(() => Math.round(props.forecast.temperature));
 

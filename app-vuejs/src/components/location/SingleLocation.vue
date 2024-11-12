@@ -19,8 +19,9 @@
 import { useLocationStore } from "@/stores/LocationStore";
 import { defineProps, ref, Ref } from "vue";
 import ForecastList from "../forecast/ForecastList.vue";
+import { Location } from "@/interfaces/Location";
 
-defineProps(["location"]);
+defineProps<{ location: Location} >();
 
 const locationStore = useLocationStore();
 const showForecasts: Ref<boolean> = ref(false);

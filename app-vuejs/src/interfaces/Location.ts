@@ -1,7 +1,10 @@
+import { Forecast } from "./Forecast";
+
 export interface Location {
   id?: number;
   city: string;
   state?: string;
+  forecsts: Forecast[];
 }
 
 export interface LocationListResponse {
