@@ -15,8 +15,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy the existing application
 COPY . .
 
-RUN php artisan key:generate
-
 # Expose the port for Laravel
 EXPOSE 9000
 

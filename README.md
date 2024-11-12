@@ -9,36 +9,45 @@ https://www.linkedin.com/in/andregervasio/
 
 ## Installation
 
-1. Run docker compose
+1. Clone this repository:
+    ```bash
+    git clone git@github.com:andreger/turno-weather.git
+    ```
+
+2. Navigate to the `turno-weather` folder:
+    ```bash
+    cd turno-weather
+    ```
+
+3. Start Docker Compose:
     ```bash
     docker compose up -d
     ```
+    The Vue.js application will run on port `8081`, while the Laravel API is hosted on port `8080`.
 
-    The Vue.js application runs on port `8081`, while the Laravel API is hosted on port `8080`.
+4. Run the setup script for the initial setup. This script will download the project dependencies, run database migrations, and seed the database:
+    ```bash
+    ./setup.sh
+    ```
 
-2. Open your browser and navigate to `http://localhost:8081`
-3. Use the following credentials to log in:
-    - User 1
-        - email: jagger@turno.com
-        - password: Mick1234
+5. Open your browser and go to `http://localhost:8081`.
 
-    - User 2
-        - email: lennon@turno.com
-        - password: John1234
+6. Use the following credentials to log in:
 
+    - **User 1**
+      - Email: jagger@turno.com
+      - Password: Mick1234
+
+    - **User 2**
+      - Email: lennon@turno.com
+      - Password: John1234
 
 ## Database Seed
 
-When you run `docker compose up` for the first time, the migrations will execute automatically. However, you can reset the database at any time using the following steps:
-
-1. Enter the container:
-   ```bash
-   docker exec -it turno-laravel-api bash
-   ```
-2. Run the migration command:
-   ```bash
-   php artisan migrate:fresh --seed
-   ```
+You can reset the database at any time by running the following migration command:
+```bash
+docker exec -it turno-api-laravel php artisan migrate:fresh --seed
+```
 
 ## Unit Tests
 
