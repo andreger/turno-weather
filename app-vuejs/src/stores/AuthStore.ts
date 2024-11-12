@@ -1,5 +1,5 @@
 import { useApi } from "@/util/useApi";
-import { User } from "@/interfaces/User";
+import { User } from "@/types/User";
 import { defineStore } from "pinia";
 import { ref, Ref } from "vue";
 import { useAlertStore } from "./AlertStore";

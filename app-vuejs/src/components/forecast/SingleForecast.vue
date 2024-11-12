@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, defineProps } from "vue";
-import { Forecast } from "@/interfaces/Forecast";
+import { Forecast } from "@/types/Forecast";
 
 const props = defineProps<{ forecast: Forecast }>();
 

@@ -19,7 +19,7 @@
 import { useLocationStore } from "@/stores/LocationStore";
 import { defineProps, ref, Ref } from "vue";
 import ForecastList from "../forecast/ForecastList.vue";
-import { Location } from "@/interfaces/Location";
+import { Location } from "@/types/Location";
 
 defineProps<{ location: Location} >();
 

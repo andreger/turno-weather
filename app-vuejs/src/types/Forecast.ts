@@ -1,4 +1,4 @@
-export interface Forecast {
+export type Forecast = {
   id: number;
   temperature: number;
   description: string;

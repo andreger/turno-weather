@@ -5,8 +5,9 @@
 </template>
 
 <script setup lang="ts">
+import { Location } from "@/types/Location";
 import SingleLocation from "./SingleLocation.vue";
 import { defineProps } from "vue";
 
-defineProps(["locations"]);
+defineProps<{ locations: Location[] }>();
 </script>

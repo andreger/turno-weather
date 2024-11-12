@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { Location, LocationListResponse, LocationResponse } from "@/interfaces/Location";
+import { CreateLocation, Location, LocationListResponse, LocationResponse } from "@/types/Location";
 import { Ref, ref } from "vue";
 import { useApi } from "@/util/useApi";
 import { useAlertStore } from "./AlertStore";
@@ -27,7 +27,7 @@ export const useLocationStore = defineStore("location", () => {
     }
   };
 
-  const add = async (location: Location) => {
+  const add = async (location: CreateLocation) => {
     try {
       loadingAdd.value = true;
       const data: LocationResponse = await requestPost("/locations", location);
@@ -44,12 +44,12 @@ export const useLocationStore = defineStore("location", () => {
   const remove = async (id: number) => {
     try {
       loadingRemove.value = true;
-      
-      await requestDelete(`/locations/${id}`);
 
       locations.value = locations.value.filter(
         (location) => location.id !== id
       );
+
+      await requestDelete(`/locations/${id}`);
 
       alertStore.clear();
     } catch (err) {
