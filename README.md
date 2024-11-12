@@ -44,24 +44,32 @@ https://www.linkedin.com/in/andregervasio/
 
 ## Database Seed
 
-You can reset the database at any time by running the following migration command:
+You can reset the database at any time by running the following command:
 ```bash
-docker exec -it turno-api-laravel php artisan migrate:fresh --seed
+docker exec turno-api-laravel php artisan migrate:fresh --seed
 ```
 
 ## Unit Tests
 
+Before running the commands listed below, enter the `turno-api-laravel` container using interactive mode:
+
+```bash
+docker exec -it turno-api-laravel bash
+```
+
 To run automated tests, use the following command:
+
 ```bash
-./vendor/bin/phpunit test
+./vendor/bin/phpunit tests
 ```
 
-To generate a coverage report, use the command:
+To generate a coverage report, use the following command:
+
 ```bash
-./vendor/bin/phpunit --coverage-html coverage
+./vendor/bin/phpunit tests --coverage-html coverage
 ```
 
-A `coverage` folder will be created, containing the report in HTML format.
+This will create a `coverage` folder containing the report in HTML format.
 
 ## API Endpoints
 
