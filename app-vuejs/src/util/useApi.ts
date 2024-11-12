@@ -1,3 +1,5 @@
+import { useAuthStore } from "@/stores/AuthStore";
+
 export const useApi = () => {
   const baseUrl = "http://localhost:8080/api";
 
@@ -11,6 +13,11 @@ export const useApi = () => {
           ...options.headers,
         },
       });
+
+      if (response.status === 401) {
+        const authStore = useAuthStore();
+        authStore.clean();
+      }
 
       let data = null;
       if (response.status !== 204) {

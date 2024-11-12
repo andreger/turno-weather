@@ -3,6 +3,7 @@ import { User } from "@/interfaces/User";
 import { defineStore } from "pinia";
 import { ref, Ref } from "vue";
 import { useAlertStore } from "./AlertStore";
+import router from "@/router";
 
 const userKey = "user";
 const tokenKey = "token";
@@ -33,9 +34,7 @@ export const useAuthStore = defineStore("auth", () => {
     try {
       await requestPost("/logout");
 
-      user.value = null;
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
+      clean();
 
       alertStore.clear();
     } catch (err) {
@@ -44,5 +43,12 @@ export const useAuthStore = defineStore("auth", () => {
     
   };
 
-  return { user, login, logout };
+  const clean = () => {
+    user.value = null;
+    localStorage.removeItem(userKey);
+    localStorage.removeItem(tokenKey);
+    router.push({ name: "login" });
+  };
+
+  return { user, login, logout, clean };
 });
