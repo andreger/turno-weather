@@ -75,9 +75,10 @@ This will create a `coverage` folder containing the report in HTML format.
 
 `turno_forecast.postman_collection.json` file, located in the project's root folder, is a Postman-exported collection containing all API endpoints.
 
-- **GET** Locations - http://localhost:8080/api/locations
-- **POST** Create Location - http://localhost:8080/api/locations
 - **POST** Login - http://localhost:8080/api/login
+- **POST** Logout - http://localhost:8080/api/logout
+- **GET** List Locations - http://localhost:8080/api/locations
+- **POST** Create Location - http://localhost:8080/api/locations
 - **DELETE** Delete Location - http://localhost:8080/api/locations/{id}
 
 
