@@ -1,0 +1,71 @@
+version: '3.8'
+services:
+  app:
+    container_name: turno-app-vuejs
+    build:
+      context: ./app-vuejs
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./app-vuejs:/app
+    networks:
+      - turno-network
+
+  api:
+    container_name: turno-api-laravel
+    build:
+      context: ./api-laravel
+    ports:
+      - "9000:8000"
+    volumes:
+      - ./api-laravel:/var/www/html
+      - ./php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=laravel
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - OPEN_WEATHER_API_URL=https://api.openweathermap.org
+      - OPEN_WEATHER_API_KEY=6dcab0a4d047cfe5f5b30cf65bdf4f44
+      - OPEN_WEATHER_ICON_URL=http://openweathermap.org/img/wn
+      - AUTH_MODEL=App\Domain\User\Models\User
+    networks:
+      - turno-network
+  
+  webserver:
+    image: nginx:latest
+    container_name: nginx_server
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./api-laravel:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - api
+    networks:
+      - turno-network
+
+  db:
+    image: mysql:8
+    container_name: mysql_container
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - turno-network
+
+volumes:
+  db_data:
+
+networks:
+  turno-network:
+    driver: bridge
