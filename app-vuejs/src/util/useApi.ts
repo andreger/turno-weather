@@ -33,13 +33,13 @@ export const useApi = () => {
     return await request(endpoint, { method: "GET" });
   };
 
-  const requestPost = async (endpoint: string, body: object) => {
+  const requestPost = async (endpoint: string, body: object | null = null) => {
     return await request(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: body ? JSON.stringify(body) : '',
     });
   };
 

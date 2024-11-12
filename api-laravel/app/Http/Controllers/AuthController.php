@@ -26,10 +26,17 @@ class AuthController extends BaseController
         $user = User::where('email', $request->email)->first();
         $token = $user->createToken('auth-token')->plainTextToken;
 
-
         return $this->sendResponse([
             'token' => $token,
             'user'=> new UserResource($user),
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        $user->tokens()->delete();
+
+        return $this->sendNoContentResponse();
     }
 }

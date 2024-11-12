@@ -29,10 +29,19 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
-  const logout = () => {
-    user.value = null;
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+  const logout = async () => {
+    try {
+      await requestPost("/logout");
+
+      user.value = null;
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+
+      alertStore.clear();
+    } catch (err) {
+      alertStore.setError((err as Error).message);
+    }
+    
   };
 
   return { user, login, logout };
