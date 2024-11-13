@@ -1,6 +1,8 @@
 <template>
-  <div v-for="location in locations" :key="location.id">
-    <SingleLocation :location="location" />
+  <div>
+    <div v-for="location in locations" :key="location.id">
+      <SingleLocation :location="location" />
+    </div>
   </div>
 </template>
 

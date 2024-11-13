@@ -1,6 +1,8 @@
 <template>
-  <div v-for="forecast in forecasts" :key="forecast.id">
-    <SingleForecast :forecast="forecast" />
+  <div>
+    <div v-for="forecast in forecasts" :key="forecast.id">
+      <SingleForecast :forecast="forecast" />
+    </div>
   </div>
 </template>
 
