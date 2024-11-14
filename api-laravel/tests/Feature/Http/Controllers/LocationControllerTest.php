@@ -8,11 +8,11 @@ use App\Domain\Forecast\Services\OpenWeatherService;
 use App\Domain\Location\Resources\LocationResource;
 use App\Domain\Location\Services\LocationService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Mockery;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Domain\Location\Models\Location;
 use App\Domain\User\Models\User;
+use PHPUnit\Framework\Attributes\Test;
+use Mockery;
 
 class LocationControllerTest extends TestCase
 {
@@ -40,10 +40,7 @@ class LocationControllerTest extends TestCase
     }
 
     /**
-     * @test
-     * @covers \App\Http\Controllers\LocationController::index
-     *
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * Test that all locations for the user are returned.
      */
     public function testIndex()
     {
@@ -67,9 +64,6 @@ class LocationControllerTest extends TestCase
     }
 
     /**
-     * @test
-     * @covers \App\Http\Controllers\LocationController::store
-     *
      * Test a valid location can be added by the user.
      */
     public function testStore()
@@ -116,9 +110,6 @@ class LocationControllerTest extends TestCase
     }
 
     /**
-     * @test
-     * @covers \App\Http\Controllers\LocationController::store
-     *
      * Test that adding a location when the user has already saved 3 locations throws an exception.
      */
     public function testStoreExceedingLocationLimit()
@@ -141,9 +132,6 @@ class LocationControllerTest extends TestCase
     }
 
     /**
-     * @test
-     * @covers \App\Http\Controllers\LocationController::destroy
-     *
      * Test that a valid location can be deleted by the user.
      */
     public function testDestroy()
@@ -177,9 +165,6 @@ class LocationControllerTest extends TestCase
     }
 
     /**
-     * @test
-     * @covers \App\Http\Controllers\LocationController::destroy
-     *
      * Test that attempting to delete a location without proper authorization
      * results in a 403 HttpException.
      */

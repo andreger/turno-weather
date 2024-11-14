@@ -10,9 +10,7 @@ use Illuminate\Support\Collection;
 class OpenWeatherServiceTest extends TestCase
 {
     /**
-     * @test
-     * @covers \App\Domain\Forecast\Services\OpenWeatherService
-     * @covers \App\Domain\Forecast\Services\OpenWeatherService::getWeatherConditionsByCity
+     * Tests that the method returns a collection when the external API
      */
     public function testGetWeatherConditionsByCitySuccessfulResponse()
     {
@@ -48,10 +46,6 @@ class OpenWeatherServiceTest extends TestCase
     }
 
     /**
-     * @test
-     * @covers \App\Domain\Forecast\Services\OpenWeatherService
-     * @covers \App\Domain\Forecast\Services\OpenWeatherService::getWeatherConditionsByCity
-     *
      * Tests that the method returns an empty collection when the external API
      * returns a 500 error.
      */
@@ -71,12 +65,8 @@ class OpenWeatherServiceTest extends TestCase
     }
 
     /**
-     * @test
-     * @covers \App\Domain\Forecast\Services\OpenWeatherService
-     * @covers \App\Domain\Forecast\Services\OpenWeatherService::locationExists
-     *
      * Tests that the method returns true when the external API returns a 200
-     * response.
+     * response and a not empty array.
      */
     public function testLocationExistsSuccessfulResponse()
     {
@@ -96,17 +86,30 @@ class OpenWeatherServiceTest extends TestCase
     }
 
     /**
-     * @test
-     * @covers \App\Domain\Forecast\Services\OpenWeatherService
-     * @covers \App\Domain\Forecast\Services\OpenWeatherService::locationExists
-     *
-     * Tests that the method returns false when the external API returns a 404
+     * Tests that the method returns false when the external API returns a 500
      * response.
      */
     public function testLocationExistsFailedResponse()
     {
         Http::fake([
-            '*' => Http::response([], 404)
+            '*' => Http::response([], 500)
+        ]);
+
+        $service = new OpenWeatherService();
+
+        $result = $service->locationExists('Test City', 'Test State');
+
+        $this->assertFalse($result);
+    }
+
+    /**
+     * Tests that the method returns false when the external API returns a 200
+     * response and an empty array.
+     */
+    public function testLocationDoesNotExistsResponse()
+    {
+        Http::fake([
+            '*' => Http::response([], 200)
         ]);
 
         $service = new OpenWeatherService();

@@ -13,11 +13,7 @@ class ForecastRepositoryTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @test
-     *
-     * Creates a new forecast
-     *
-     * @covers \App\Domain\Forecast\Repositories\ForecastRepository::createForecast
+     * Test that a forecast can be created.
      */
     public function testCreateForecast()
     {
