@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Domain\Location\Models\Location;
 use App\Domain\User\Models\User;
-use PHPUnit\Framework\Attributes\Test;
 use Mockery;
 
 class LocationControllerTest extends TestCase
