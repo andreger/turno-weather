@@ -19,6 +19,8 @@ class LocationControllerTest extends TestCase
     protected $openWeatherServiceMock;
     protected $controller;
 
+
+
     protected function setUp(): void
     {
         parent::setUp();

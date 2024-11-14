@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Domain\User\Resources\UserResource;
+use App\Domain\User\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Domain\User\Models\User;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AuthController extends BaseController
 {
+    protected $userService;
+
+    public function __construct(UserService $userService) {
+        $this->userService = $userService;
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -23,8 +29,8 @@ class AuthController extends BaseController
             throw new HttpException(422, 'Invalid credentials');
         }
 
-        $user = User::where('email', $request->email)->first();
-        $token = $user->createToken('auth-token')->plainTextToken;
+        $user = $this->userService->getUserByEmail($request->email);
+        $token = $this->userService->createAuthToken($user);
 
         return $this->sendResponse([
             'token' => $token,
@@ -35,8 +41,7 @@ class AuthController extends BaseController
     public function logout(Request $request)
     {
         $user = $request->user();
-        $user->tokens()->delete();
-
+        $this->userService->deleteTokens($user);
         return $this->sendNoContentResponse();
     }
 }

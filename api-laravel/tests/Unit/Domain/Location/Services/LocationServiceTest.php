@@ -162,6 +162,9 @@ class LocationServiceTest extends TestCase
             ->with($location, $userId);
 
         $this->locationService->attachUser($location, $userId);
+
+        // Assert: No exception means the test passed
+        $this->assertTrue(true);
     }
 
     /**
@@ -179,6 +182,9 @@ class LocationServiceTest extends TestCase
             ->with($location, $userId);
 
         $this->locationService->detachUser($location, $userId);
+
+        // Assert: No exception means the test passed
+        $this->assertTrue(true);
     }
 
     /**
